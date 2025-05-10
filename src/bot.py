@@ -1,8 +1,11 @@
 from dotenv import load_dotenv
 import os
 import logging
+
 from telegram import ForceReply, Update
 from telegram.ext import Application, CommandHandler, ContextTypes, MessageHandler, filters
+
+import jmdict
 
 
 load_dotenv()
@@ -36,6 +39,12 @@ async def echo(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await update.message.reply_text(update.message.text)
 
 
+async def random_entry(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    entry = jmdict.get_random_jmdict_entry()
+    entry = jmdict.format_jmdict_entry(entry)
+    await update.message.reply_text(entry)
+
+
 def main() -> None:
     """Start the bot."""
     # Create the Application and pass it your bot's token.
@@ -44,6 +53,7 @@ def main() -> None:
     # on different commands - answer in Telegram
     application.add_handler(CommandHandler("start", start))
     application.add_handler(CommandHandler("help", help_command))
+    application.add_handler(CommandHandler("random", random_entry))
 
     # on non command i.e message - echo the message on Telegram
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, echo))
