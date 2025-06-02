@@ -1,3 +1,7 @@
+"""
+JMdict parser module for handling Japanese-English dictionary entries.
+Provides functionality to extract and format random entries from the JMdict XML file.
+"""
 from lxml import etree
 import random
 
@@ -16,6 +20,7 @@ def get_random_jmdict_entry(filepath='../JMdict_e'):
         'reading': rebs,
         'meanings': glosses
     }
+
 
 def format_jmdict_entry(entry):
     kanji = ", ".join(entry['kanji']) if entry['kanji'] else "(no kanji)"
