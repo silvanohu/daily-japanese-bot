@@ -10,6 +10,7 @@ from telegram.ext import Application, CommandHandler, MessageHandler, filters
 
 from handlers import start, help_command, random_entry, subscribe, unsubscribe
 from scheduler import send_random_entry_to_all
+from logger import setup_logging
 
 load_dotenv()
 
@@ -29,19 +30,28 @@ def setup_scheduler(application: Application) -> None:
     job_queue = application.job_queue
     job_queue.run_daily(
         send_random_entry_to_all,
-        time=datetime.time(hour=15, minute=5, second=0),
+        time=datetime.time(hour=15, minute=0, second=0),
         days=(0, 1, 2, 3, 4, 5, 6)  # All days of the week
     )
 
 
 def main() -> None:
     """Start the bot."""
+
+    # Set up logger
+    logger = setup_logging()
+    logger.info("Starting application.")
+
     # Create the Application
+    logger.info("Setting up Telegram bot.")
     application = Application.builder().token(os.getenv("TELEGRAM_BOT_TOKEN")).build()
 
     # Setup handlers and scheduler
+    logger.info("Setting up handlers and scheduler.")
     setup_handlers(application)
     setup_scheduler(application)
+
+    logger.info("Application started successfully.")
 
     # Run the bot until the user presses Ctrl-C
     application.run_polling(allowed_updates=Update.ALL_TYPES)
