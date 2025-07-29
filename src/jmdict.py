@@ -10,6 +10,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 def get_random_jmdict_entry(filepath='../JMdict_e'):
+    """Get a random entry from the JMdict XML file."""
     logger.info("Getting random JMdict entry.")
     tree = etree.parse(filepath)
     entries = tree.xpath('//entry')
@@ -31,6 +32,7 @@ def get_random_jmdict_entry(filepath='../JMdict_e'):
 
 
 def format_jmdict_entry(entry):
+    """Format a JMdict entry into a string."""
     logger.info("Formatting JMdict entry.")
     kanji = ", ".join(entry['kanji']) if entry['kanji'] else "(no kanji)"
     reading = ", ".join(entry['reading'])
