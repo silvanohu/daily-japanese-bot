@@ -39,7 +39,7 @@ def main() -> None:
     """Start the bot."""
 
     # Set up logger
-    logger = setup_logging()
+    logger = setup_logging(log_level=os.getenv("LOG_LEVEL", "INFO").upper())
     logger.info("Starting application.")
 
     # Create the Application
