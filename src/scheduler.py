@@ -17,4 +17,4 @@ async def send_random_entry_to_all(context: ContextTypes.DEFAULT_TYPE) -> None:
     if 'chats' in context.bot_data:
         for chat_id in context.bot_data['chats']:
             await context.bot.send_message(chat_id=chat_id, text=entry)
-            logger.info(f"Sent random entry to chat {chat_id}.")
+            logger.info(f"Sent random entry to chat.")
