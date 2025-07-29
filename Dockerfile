@@ -8,4 +8,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-CMD ["python", "src/bot.py"]
+WORKDIR /app/src
+CMD ["python", "bot.py"]
