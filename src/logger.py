@@ -1,7 +1,6 @@
 import logging
 from logging.handlers import RotatingFileHandler
 import sys
-from datetime import datetime
 
 
 def setup_logging(log_level=logging.INFO, log_to_file=True, max_file_size=10 * 1024 * 1024, backup_count=5):
